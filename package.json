@@ -1,0 +1,57 @@
+{
+  "name": "wave2_rn_poc",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint .",
+    "clean": "cd android && ./gradlew clean",
+    "simulator": "open -a simulator",
+    "open-ios-project": "cd ios && open wave2_rn_poc.xcworkspace",
+    "debug": "cd android && ./gradlew clean && ./gradlew assembleDebug",
+    "release": "cd android && ./gradlew clean && ./gradlew assembleRelease",
+    "pr":"cd android/app/build/outputs/apk/release && python3 -m http.server",
+    "pod": "cd ios && pod install",
+    "pod-deintegrate": "cd ios && pod deintegrate",
+    "rm-pod-lock": "cd ios && rm -rf Podfile.lock"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.7",
+    "@react-navigation/native": "^6.0.11",
+    "@react-navigation/native-stack": "^6.7.0",
+    "axios": "^0.27.2",
+    "chance": "^1.1.8",
+    "datejs": "^1.0.0-rc3",
+    "lodash": "^4.17.21",
+    "nanoid": "^4.0.0",
+    "prop-types": "^15.8.1",
+    "react": "18.0.0",
+    "react-native": "0.69.1",
+    "react-native-responsive-dimensions": "^3.1.1",
+    "react-native-safe-area-context": "^4.3.1",
+    "react-native-screens": "^3.15.0",
+    "react-native-simple-toast": "^1.1.4",
+    "react-native-vector-icons": "^9.2.0",
+    "react-redux": "^8.0.2",
+    "redux": "^4.2.0",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.32.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.70.3",
+    "react-test-renderer": "18.0.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
