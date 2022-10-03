@@ -1,14 +1,23 @@
-import {StyleSheet, Text, View, FlatList} from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Modal,
+} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {ColorConstants} from '../../constants';
 import {responsiveWidth} from 'react-native-responsive-dimensions';
 import {Chance} from 'chance';
 import {changePrice} from '../../redux/actions/watchlist';
+// import Carousel from 'react-native-snap-carousel';
 
-const WatchListCard = ({itemData}) => {
+const WatchListCard = ({itemData, onPress}) => {
   return (
-    <View
+    <TouchableOpacity
+      onPress={() => onPress(itemData)}
       style={{
         marginVertical: 10,
         width: responsiveWidth(90),
@@ -64,7 +73,71 @@ const WatchListCard = ({itemData}) => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
+  );
+};
+
+const ScriptCarousel = ({isVisible, onClose}) => {
+  const ENTRIES1 = [
+    {
+      title: 'Beautiful and dramatic Antelope Canyon',
+      subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+      illustration: 'https://i.imgur.com/UYiroysl.jpg',
+    },
+    {
+      title: 'Earlier this morning, NYC',
+      subtitle: 'Lorem ipsum dolor sit amet',
+      illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
+    },
+    {
+      title: 'White Pocket Sunset',
+      subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
+      illustration: 'https://i.imgur.com/MABUbpDl.jpg',
+    },
+    {
+      title: 'Acrocorinth, Greece',
+      subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+      illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
+    },
+    {
+      title: 'The lone tree, majestic landscape of New Zealand',
+      subtitle: 'Lorem ipsum dolor sit amet',
+      illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
+    },
+    {
+      title: 'Middle Earth, Germany',
+      subtitle: 'Lorem ipsum dolor sit amet',
+      illustration: 'https://i.imgur.com/lceHsT6l.jpg',
+    },
+  ];
+  // _renderItem = ({item, index}) => {
+  //   return (
+  //     <View style={styles.slide}>
+  //       <Text style={styles.title}>{item.title}</Text>
+  //     </View>
+  //   );
+  // };
+  return (
+    <Modal animationType="slide" transparent visible={isVisible}>
+      <TouchableOpacity onPress={onClose}>
+        <View
+          style={{
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0,0,0,.5)',
+          }}>
+          {/* <Carousel
+            ref={c => {
+              this._carousel = c;
+            }}
+            data={ENTRIES1}
+            renderItem={this._renderItem}
+            // sliderWidth={sliderWidth}
+            // itemWidth={itemWidth}
+          /> */}
+        </View>
+      </TouchableOpacity>
+    </Modal>
   );
 };
 const Dashboard = props => {
@@ -74,8 +147,22 @@ const Dashboard = props => {
   const watchListData = state?.watchlistReducer;
   let intervalRef = useRef(null);
   const chance = new Chance();
+
+  // states
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const onWatchListItemPress = item => {
+    console.log(item);
+    toggleScriptModal();
+  };
+
   const renderWatchListItem = item => {
-    return <WatchListCard itemData={watchListData?.[item?.item]} />;
+    return (
+      <WatchListCard
+        itemData={watchListData?.[item?.item]}
+        onPress={onWatchListItemPress}
+      />
+    );
   };
 
   const renderWatchList = () => {
@@ -89,7 +176,7 @@ const Dashboard = props => {
     );
   };
 
-  const updateWatchListDataEverySecond = () => {};
+  const toggleScriptModal = () => setIsModalVisible(!isModalVisible);
 
   useEffect(() => {
     const scriptsIds = Object.keys(watchListData);
@@ -104,7 +191,12 @@ const Dashboard = props => {
     return () => clearInterval(interval);
   }, []);
 
-  return <View style={styles.container}>{renderWatchList()}</View>;
+  return (
+    <View style={styles.container}>
+      {renderWatchList()}
+      <ScriptCarousel isVisible={isModalVisible} onClose={toggleScriptModal} />
+    </View>
+  );
 };
 
 export default Dashboard;

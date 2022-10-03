@@ -13,13 +13,14 @@
     "open-ios-project": "cd ios && open wave2_rn_poc.xcworkspace",
     "debug": "cd android && ./gradlew clean && ./gradlew assembleDebug",
     "release": "cd android && ./gradlew clean && ./gradlew assembleRelease",
-    "pr":"cd android/app/build/outputs/apk/release && python3 -m http.server",
+    "pr": "cd android/app/build/outputs/apk/release && python3 -m http.server",
     "pod": "cd ios && pod install",
     "pod-deintegrate": "cd ios && pod deintegrate",
     "rm-pod-lock": "cd ios && rm -rf Podfile.lock"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.7",
+    "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
     "axios": "^0.27.2",
@@ -34,6 +35,7 @@
     "react-native-safe-area-context": "^4.3.1",
     "react-native-screens": "^3.15.0",
     "react-native-simple-toast": "^1.1.4",
+    "react-native-snap-carousel": "^3.9.1",
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.2",
     "redux": "^4.2.0",

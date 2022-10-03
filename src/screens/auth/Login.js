@@ -40,7 +40,7 @@ const Login = props => {
         Toast.show('Please enter valid pan/mobile');
         return;
       }
-      navigation?.push('Dashboard');
+      navigation?.navigate('Home');
     } catch (error) {
       console.log(error);
     }
